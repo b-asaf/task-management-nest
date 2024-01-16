@@ -49,11 +49,18 @@ export class TasksService {
     return this.tasksRepository.createTask(createTaskDto);
   }
 
-  // deleteTask(id: string): void {
-  //   // just for testing purposes
-  //   const found = this.getTaskById(id);
-  //   this.tasks = this.tasks.filter((task) => task.id !== id);
-  // }
+  async deleteTask(id: string): Promise<void> {
+    // `remove` can be used instead BUT, to use `remove` 2 DB calls are required:
+    // 1. fetch the relevant item from DB
+    // 2. if successful, remove the item from DB
+    // for performance reasons `delete` is used
+    const deleteResult = await this.tasksRepository.delete({ id });
+
+    // in the `delete` response, the number of deleted rows is returned, if 0 -> no row was deleted
+    if (deleteResult.affected === 0) {
+      throw new NotFoundException(`Task with ID "${id}" not found`);
+    }
+  }
   // // Temp solution, will be removed once data will be stored in DB
   // updateTaskStatus(id: string, status: TaskStatus): Task {
   //   const task = this.getTaskById(id);
