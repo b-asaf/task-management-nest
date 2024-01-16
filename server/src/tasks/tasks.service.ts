@@ -10,30 +10,10 @@ import { TasksRepository } from './tasks.repository';
 export class TasksService {
   constructor(private tasksRepository: TasksRepository) {}
 
-  // // by default methods are 'public'
-  // getAllTasks(): Task[] {
-  //   return this.tasks;
-  // }
-  // getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] {
-  //   const { status, search } = filterDto;
-  //   let tasks = this.getAllTasks();
-  //   if (status) {
-  //     tasks = tasks.filter((tasks) => tasks.status === status);
-  //   }
-  //   if (search) {
-  //     const _search = search.toLocaleLowerCase();
-  //     tasks = tasks.filter((task) => {
-  //       if (
-  //         task.title.toLocaleLowerCase().includes(_search) ||
-  //         task.description.toLocaleLowerCase().includes(_search)
-  //       ) {
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-  //   }
-  //   return tasks;
-  // }
+  // by default methods are 'public'
+  getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+    return this.tasksRepository.getTasks(filterDto);
+  }
 
   async getTaskById(id: string): Promise<Task> {
     const found = await this.tasksRepository.findOne({ where: { id } });
