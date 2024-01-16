@@ -172,3 +172,64 @@ export class TaskController {
   }
 }
 ```
+
+### NestJS Pipes
+
+- Pipes operate on the **arguments** to be processed by the route handler, just before the handler is called
+- Pipes can perform **data transformation** or **data validation**
+- Pipes can return data - either original or modified - which will be passed to the route handler
+- Pipes can throw exceptions, these exceptions will be handled by NestJS and parsed into an error response
+- Pipes can be asynchronous
+
+\*\* resembles to middleware
+
+#### Pipes implementation
+
+- NestJS have built-in/default pipes such as `ValidationPipe`, `ParserIntPipe`, etc...
+- NestJS provide a way to implement custom pipes:
+  - Pipes are classes with **@Injectable()** decorator
+  - Pipes must implement **PipeTransform** generic interface, therefore it must implement **transform()** method which is used by NestJS to process the arguments
+    - Transform method accepts 2 parameters:
+      1. **value** - the value of the processed argument
+      2. **metadata** - _optional_ object containing metadata about the argument
+    - The return value from the transform method will be passed to the route handler, exceptions will be sent to the client
+
+examples:
+
+1. **Global level pipes** - defined at the application level and will be applied to any incoming request
+
+```javascript
+async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+  app.useGlobalPipes(SomePipe);
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+2. **Handler level pipes** - defined at the handler level via **@UsePipes()** decorator. This pipes will be process all the parameters for incoming requests
+
+```javascript
+@Post()
+@UsePipes(SomePipe)
+createTask(@Body('description') description) {
+  ...
+}
+```
+
+3. **Parameter level pipes** - defined at the parameter level. Only the specific argument for which the pipe has been specified will be processed
+
+```javascript
+@Post()
+createTask(@Body('description', SomePipe) description) {
+  ...
+}
+```
+
+| Pro's / Con's | Handler level pipes                                                                               | Parameter level pipes                                                 |
+| ------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Pro's         | don't require extra code in parameter level                                                       | Cleaner and slimmer                                                   |
+| Pro's         | Easier to maintain and expand when data shape changes it easy to make changes ony within the pipe |                                                                       |
+| Pro's         | The responsibility of identifying the arguments to process is located in one central file         |                                                                       |
+| Pro's         | Promotes the usage of Dto's which is a good practice                                              |                                                                       |
+| Con's         | Required more code in the handler level                                                           | More code added to the handlers and can become messy/hard to maintain |
