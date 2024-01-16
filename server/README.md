@@ -228,8 +228,8 @@ createTask(@Body('description', SomePipe) description) {
 
 | Pro's / Con's | Handler level pipes                                                                               | Parameter level pipes                                                 |
 | ------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| Pro's         | don't require extra code in parameter level                                                       | Cleaner and slimmer                                                   |
-| Pro's         | Easier to maintain and expand when data shape changes it easy to make changes ony within the pipe |                                                                       |
-| Pro's         | The responsibility of identifying the arguments to process is located in one central file         |                                                                       |
-| Pro's         | Promotes the usage of Dto's which is a good practice                                              |                                                                       |
-| Con's         | Required more code in the handler level                                                           | More code added to the handlers and can become messy/hard to maintain |
+| Pro           | don't require extra code in parameter level                                                       | Cleaner and slimmer                                                   |
+| Pro           | Easier to maintain and expand when data shape changes it easy to make changes ony within the pipe |                                                                       |
+| Pro           | The responsibility of identifying the arguments to process is located in one central file         |                                                                       |
+| Pro           | Promotes the usage of Dto's which is a good practice                                              |                                                                       |
+| Con           | Required more code in the handler level                                                           | More code added to the handlers and can become messy/hard to maintain |
