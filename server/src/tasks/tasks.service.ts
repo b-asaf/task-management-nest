@@ -72,12 +72,7 @@ export class TasksService {
   // Temp solution, will be removed once data will be stored in DB
   updateTaskStatus(id: string, status: TaskStatus): Task {
     const task = this.getTaskById(id);
-
-    if (task) {
-      task.status = status;
-      return task;
-    }
-
-    return null;
+    task.status = status;
+    return task;
   }
 }
