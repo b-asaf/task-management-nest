@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
-import { Task, TaskStatus } from './task.model';
+
 import { CreateTaskDto } from './dto/create-task.dto';
+import { Task, TaskStatus } from './task.model';
 
 @Injectable()
 export class TasksService {
@@ -34,5 +35,17 @@ export class TasksService {
 
   deleteTask(id: string): void {
     this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  // Temp solution, will be removed once data will be stored in DB
+  updateTaskStatus(id: string, status: TaskStatus): Task {
+    const task = this.getTaskById(id);
+
+    if (task) {
+      task.status = status;
+      return task;
+    }
+
+    return null;
   }
 }
