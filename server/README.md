@@ -45,6 +45,7 @@ Useful commands:
 - `nest g controller [name]`: The relevant steps/logs will be visible in `cmd` window
   - flag `--no-spec`: by default Nest will generate tests file for the controller (TDD approach ;) )
     adding this flag will prevent the creation of the test file
+- `nest g service [name]`: The relevant steps/logs will be visible in `cmd` window
 
 ### NestJS Modules
 
@@ -110,6 +111,64 @@ export class TasksController {
   createTask() {
     // do stuff
     return ...;
+  }
+}
+```
+
+### NestJS Providers
+
+- Can be injected into constructors if decorated as an **@Injectable** via dependant injection
+- Can be a plain value, a class, sync/async factory etc...
+- Providers must be provided to a module for them to be usable
+- Can be exported from a module, and then be available to other modules that import this provider
+
+#### NestJS Services
+
+- Services are implemented using providers, **Not all providers are services**
+- Can be implemented as Singleton when wrapped with **@Injectable()** and provided to a module, this means that the same instance will be shared across the application acting as a single source of truth
+- Most of the heavy business logic will reside inside a service. for example, the service will be called from a controller to validate data, create an item in DB, return a response, etc...
+
+example:
+
+```javascript
+import { XXXControllerA } from './path/name';
+import { XXXServiceA } from './path/name'; // this service is injectable
+import { XXXServiceB } from './path/name'; // this service is injectable
+
+@Module({
+  controller: [
+    XXXControllerA
+  ],
+  providers: [
+    XXXServiceA,
+    XXXServiceB
+  ]
+})
+export class XXXModule;
+```
+
+### Dependency Injection in NestJS
+
+- Any component within NestJS ecosystem can inject a provider that is decorated with the **@injectable** decorator
+- The dependencies are defined in the constructor of the class, NestJs will handle the injection behind the scene and it will behave as a class property
+
+example:
+
+```javascript
+import { TasksService } from './tasks.service'; // this service is injectable
+
+@Controller('/tasks')
+export class TaskController {
+  // injecting the service in the constructor
+  // - NestJS will initialize a service instance if its not already exists,
+  // - if its already exists NestJs will provide that instance
+  constructor(private tasksService: TasksService) {}
+
+  @Get()
+  async getAllTasks() {
+    // taskService is a property of the TaskController class
+    // getAllTasks is a public method inside the tasksService
+    return await this.tasksService.getAllTasks();
   }
 }
 ```
