@@ -233,3 +233,40 @@ createTask(@Body('description', SomePipe) description) {
 | Pro           | The responsibility of identifying the arguments to process is located in one central file         |                                                                       |
 | Pro           | Promotes the usage of Dto's which is a good practice                                              |                                                                       |
 | Con           | Required more code in the handler level                                                           | More code added to the handlers and can become messy/hard to maintain |
+
+### NestJS Guards
+
+In NestJS there is a mechanism to protect routes which is called: **Guards**
+
+Like NestJs Pipes, there are 3 ways to use _guard_:
+
+1. **Global level guards** - defined at the application level and will be applied to any incoming request
+
+```javascript
+async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+  app.useGlobalGuards(new SomeGuard());
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+2. **Controller level guards** - defined at the handler level via **@UseGuards(SomeGuard())** decorator. This pipes will be process all the parameters for incoming requests
+
+```javascript
+@Controller('some')
+@UseGuards(SomeGuard())
+export class SomeController {
+   ...
+}
+```
+
+3. **Handler level guards** - defined at the handler level via **@UseGuards(SomeGuard())** decorator. This pipes will be process all the parameters for incoming requests
+
+```javascript
+@Post()
+@UseGuards(SomeGuard())
+createTask(@Body('description') description) {
+  ...
+}
+```
