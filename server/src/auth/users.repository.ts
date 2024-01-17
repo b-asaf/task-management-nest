@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { DataSource, Repository } from 'typeorm';
@@ -12,6 +13,8 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UsersRepository extends Repository<User> {
+  private logger = new Logger('UsersRepository', { timestamp: true });
+
   constructor(private dataSource: DataSource) {
     super(User, dataSource.createEntityManager());
   }
@@ -30,6 +33,10 @@ export class UsersRepository extends Repository<User> {
     try {
       await this.save(user);
     } catch (err) {
+      this.logger.error(
+        `Failed to created a user with ${user.username}`,
+        err.stack,
+      );
       if (err.code === DUPLICATE_USERNAME_CODE) {
         throw new ConflictException('Username already exists');
       }

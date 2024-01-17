@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Patch,
   Post,
@@ -22,6 +23,9 @@ import { TasksService } from './tasks.service';
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
+  // 'TasksController' - makes life easy to identify from where the log came from
+  private logger = new Logger('TasksController');
+
   constructor(private tasksService: TasksService) {}
 
   @Get()
@@ -29,11 +33,17 @@ export class TasksController {
     @Query() filterDto: GetTasksFilterDto,
     @GetUser() user: User,
   ): Promise<Task[]> {
+    this.logger.verbose(
+      `user ${user.username} retrieving all tasks. filters: ${JSON.stringify(filterDto)}`,
+    );
     return this.tasksService.getTasks(filterDto, user);
   }
 
   @Get('/:id')
   getTaskById(@Param('id') id: string, @GetUser() user: User): Promise<Task> {
+    this.logger.verbose(
+      `user ${user.username} try to find task with id = ${id}`,
+    );
     return this.tasksService.getTaskById(id, user);
   }
 
@@ -63,11 +73,17 @@ export class TasksController {
     @Body() createTaskDto: CreateTaskDto,
     @GetUser() user: User, // get user using the custom decorator
   ): Promise<Task> {
+    this.logger.verbose(
+      `user ${user.username} create task ${JSON.stringify(createTaskDto)}`,
+    );
     return this.tasksService.createTask(createTaskDto, user);
   }
 
   @Delete('/:id')
   deleteTask(@Param('id') id: string, @GetUser() user: User): Promise<void> {
+    this.logger.verbose(
+      `user ${user.username} tries to delete task with id = ${id}`,
+    );
     return this.tasksService.deleteTask(id, user);
   }
 
@@ -79,6 +95,10 @@ export class TasksController {
   ): Promise<Task> {
     // At this point the params were validated successfully by the validation pipe, this Dto can be used.
     const { status } = updateTaskStatusDto;
+
+    this.logger.verbose(
+      `user ${user.username} tries to update status of task id = ${id}, new status is ${status}`,
+    );
     return this.tasksService.updateTaskStatus(id, status, user);
   }
 }
