@@ -30,12 +30,12 @@ export class TasksService {
     return this.tasksRepository.createTask(createTaskDto, user);
   }
 
-  async deleteTask(id: string): Promise<void> {
+  async deleteTask(id: string, user: User): Promise<void> {
     // `remove` can be used instead BUT, to use `remove` 2 DB calls are required:
     // 1. fetch the relevant item from DB
     // 2. if successful, remove the item from DB
     // for performance reasons `delete` is used
-    const deleteResult = await this.tasksRepository.delete({ id });
+    const deleteResult = await this.tasksRepository.delete({ id, user });
 
     // in the `delete` response, the number of deleted rows is returned, if 0 -> no row was deleted
     if (deleteResult.affected === 0) {
