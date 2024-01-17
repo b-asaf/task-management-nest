@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { User } from 'src/auth/user.entity';
@@ -21,5 +22,7 @@ export class Task {
 
   // i.e. don't fetch the tasks when fetching the user
   @ManyToOne((_type) => User, (user) => user.tasks, { eager: false })
+  // When the response is printed as plain text, this information will be excluded from the response
+  @Exclude({ toPlainOnly: true })
   user: User;
 }
