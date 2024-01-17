@@ -3,11 +3,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UsersRepository } from './users.repository';
-import { User } from './user.entity';
+import { AuthService } from './auth.service';
 import { JWT_EXPIRATION_TIME_SPAN } from './constant';
+import { JwtStrategy } from './jwt.strategy';
+import { User } from './user.entity';
+import { UsersRepository } from './users.repository';
 
 @Module({
   imports: [
@@ -15,12 +16,13 @@ import { JWT_EXPIRATION_TIME_SPAN } from './constant';
     JwtModule.register({
       secret: 'topSecret42', // temp solution
       signOptions: {
-        expiresIn: JWT_EXPIRATION_TIME_SPAN, // 3600seconds -> 1 hour
+        expiresIn: JWT_EXPIRATION_TIME_SPAN,
       },
     }),
     TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersRepository],
+  providers: [AuthService, JwtStrategy, UsersRepository],
+  exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}
