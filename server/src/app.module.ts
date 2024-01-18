@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from './auth/auth.module';
+import { configValidationSchema } from './config.schema';
 import { TasksModule } from './tasks/tasks.module';
 
 @Module({
@@ -12,6 +13,7 @@ import { TasksModule } from './tasks/tasks.module';
       envFilePath: [`.env.stage.${process.env.STAGE}`],
       // now config is available in the entire app, no need to import in each module
       isGlobal: true,
+      validationSchema: configValidationSchema,
     }),
     TasksModule,
     // this is ASYNC - waiting for configModule to be initialized
