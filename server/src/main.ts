@@ -10,8 +10,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TransformInterceptor());
-  await app.listen(3000);
 
-  logger.log('Application listening on port 3000');
+  const port = process.env.APP_PORT ? parseInt(process.env.APP_PORT) : 3001;
+  await app.listen(port);
+
+  logger.log(`Application listening on port ${port}`);
 }
 bootstrap();
