@@ -34,6 +34,9 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+* *thunder-client* directory contains the requests that were used to emulate API calls with thunder client VS extension (a tool that is similar to POSTMAN).
+Using it it was easy to check the endpoints manually before adding the client-side app
+
 ## Docs
 
 ### NestJS CLI
@@ -43,15 +46,15 @@ Useful commands:
 - `nest -h`: Show helper documentation
 - `nest g module [name]`: The relevant steps/logs will be visible in `cmd` window
 - `nest g controller [name]`: The relevant steps/logs will be visible in `cmd` window
-  - flag `--no-spec`: by default Nest will generate tests file for the controller (TDD approach ;) )
+  - flag `--no-spec`: by default Nest will generate a test file for the controller (TDD approach ;) )
     adding this flag will prevent the creation of the test file
 - `nest g service [name]`: The relevant steps/logs will be visible in `cmd` window
 
 ### NestJS Modules
 
 - Each application has at least one module - the root module, the starting point of the application.
-- A way to organize components based on features (i.e a module -> feature) when each module is in its own folder
-- Module's are singletons, therefore a module can be imported by multiple other modules
+- A way to organize components based on features (i.e a module -> feature) when each module is in its folder
+- Modules are singletons, therefore a module can be imported by multiple other modules
 
 #### Define a module
 
@@ -92,7 +95,7 @@ export class XXXModule {}
 - defined by annotating a class with **@Controller** decorator
 - **@Controller** decorator accepts a string, which is the **path** to be handled by the controller
 
-#### define a handler
+#### Define a handler
 
 - handlers are simply methods within the controller class, decorated with decorators such as **@Get**, **@Post**, etc...
 
@@ -118,7 +121,7 @@ export class TasksController {
 ### NestJS Providers
 
 - Can be injected into constructors if decorated as an **@Injectable** via dependant injection
-- Can be a plain value, a class, sync/async factory etc...
+- Can be a plain value, a class, sync/async factory, etc...
 - Providers must be provided to a module for them to be usable
 - Can be exported from a module, and then be available to other modules that import this provider
 
@@ -149,8 +152,8 @@ export class XXXModule;
 
 ### Dependency Injection in NestJS
 
-- Any component within NestJS ecosystem can inject a provider that is decorated with the **@injectable** decorator
-- The dependencies are defined in the constructor of the class, NestJs will handle the injection behind the scene and it will behave as a class property
+- Any component within the NestJS ecosystem can inject a provider that is decorated with the **@injectable** decorator
+- The dependencies are defined in the constructor of the class, NestJs will handle the injection behind the scenes and it will behave as a class property
 
 example:
 
@@ -160,7 +163,7 @@ import { TasksService } from './tasks.service'; // this service is injectable
 @Controller('/tasks')
 export class TaskController {
   // injecting the service in the constructor
-  // - NestJS will initialize a service instance if its not already exists,
+  // - NestJS will initialize a service instance if it does not already exist,
   // - if its already exists NestJs will provide that instance
   constructor(private tasksService: TasksService) {}
 
@@ -186,13 +189,13 @@ export class TaskController {
 #### Pipes implementation
 
 - NestJS have built-in/default pipes such as `ValidationPipe`, `ParserIntPipe`, etc...
-- NestJS provide a way to implement custom pipes:
+- NestJS provides a way to implement custom pipes:
   - Pipes are classes with **@Injectable()** decorator
   - Pipes must implement **PipeTransform** generic interface, therefore it must implement **transform()** method which is used by NestJS to process the arguments
-    - Transform method accepts 2 parameters:
+    The transform method accepts 2 parameters:
       1. **value** - the value of the processed argument
       2. **metadata** - _optional_ object containing metadata about the argument
-    - The return value from the transform method will be passed to the route handler, exceptions will be sent to the client
+    - The return value from the transform method will be passed to the route handler, and exceptions will be sent to the client
 
 examples:
 
@@ -207,7 +210,7 @@ async function bootstrap() {
 bootstrap();
 ```
 
-2. **Handler level pipes** - defined at the handler level via **@UsePipes()** decorator. This pipes will be process all the parameters for incoming requests
+2. **Handler level pipes** - defined at the handler level via **@UsePipes()** decorator. These pipes will process all the parameters for incoming requests
 
 ```javascript
 @Post()
@@ -226,13 +229,13 @@ createTask(@Body('description', SomePipe) description) {
 }
 ```
 
-| Pro's / Con's | Handler level pipes                                                                               | Parameter level pipes                                                 |
-| ------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| Pro           | don't require extra code in parameter level                                                       | Cleaner and slimmer                                                   |
-| Pro           | Easier to maintain and expand when data shape changes it easy to make changes ony within the pipe |                                                                       |
-| Pro           | The responsibility of identifying the arguments to process is located in one central file         |                                                                       |
-| Pro           | Promotes the usage of Dto's which is a good practice                                              |                                                                       |
-| Con           | Required more code in the handler level                                                           | More code added to the handlers and can become messy/hard to maintain |
+| Pro's / Con's | Handler level pipes | Parameter level pipes |
+| --- | --- | --- |
+| Pro | Don't require extra code in parameter level | Cleaner and slimmer |
+| Pro | Easier to maintain and expand when data shape changes it is easy to make changes only within the pipe | |
+| Pro | The responsibility of identifying the arguments to process is located in one central file | |
+| Pro | Promotes the usage of Dto's which is a good practice | |
+| Con | Required more code in the handler level | More code added to the handlers and can become messy/hard to maintain |
 
 ### NestJS Guards
 
@@ -251,7 +254,7 @@ async function bootstrap() {
 bootstrap();
 ```
 
-2. **Controller level guards** - defined at the handler level via **@UseGuards(SomeGuard())** decorator. This pipes will be process all the parameters for incoming requests
+2. **Controller level guards** - defined at the handler level via **@UseGuards(SomeGuard())** decorator. These pipes will process all the parameters for incoming requests
 
 ```javascript
 @Controller('some')
@@ -261,7 +264,7 @@ export class SomeController {
 }
 ```
 
-3. **Handler level guards** - defined at the handler level via **@UseGuards(SomeGuard())** decorator. This pipes will be process all the parameters for incoming requests
+3. **Handler level guards** - defined at the handler level via **@UseGuards(SomeGuard())** decorator. These pipes will process all the parameters for incoming requests
 
 ```javascript
 @Post()
