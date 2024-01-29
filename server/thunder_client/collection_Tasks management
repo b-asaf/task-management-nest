@@ -1,0 +1,214 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Tasks management",
+    "dateExported": "2024-01-29T13:11:56.919Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "b5f0f621-10e5-4077-88f0-5c54ce2c170d",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Get all tasks",
+            "url": "http://localhost:3000/tasks",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-01-16T06:34:09.125Z",
+            "modified": "2024-01-18T08:12:36.285Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "search",
+                        "value": "yumm"
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIzIiwiaWF0IjoxNzA1NTY1NTI1LCJleHAiOjE3MDU1NjkxMjV9.l6mKepBifD-apdWv1j5ZBtQ9Jyf66YV-lbpzQyf9xcc"
+            },
+            "tests": []
+        },
+        {
+            "_id": "079392c1-4e5e-41b0-a391-3ed199615741",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Create a task",
+            "url": "http://localhost:3000/tasks",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-16T07:01:23.136Z",
+            "modified": "2024-01-17T16:36:56.138Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "title",
+                        "value": "Sleeping"
+                    },
+                    {
+                        "name": "description",
+                        "value": "Take a long night sleep"
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzA1NTA3NzcwLCJleHAiOjE3MDU1MTEzNzB9.WJnmYjZ4gaviy6HIDSc5-_Y-m4cN7QQXbWcE9yUMgJo"
+            },
+            "tests": []
+        },
+        {
+            "_id": "7df19a01-7950-4548-84e4-d113237029aa",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Get task by ID",
+            "url": "http://localhost:3000/tasks/35181eb6-8393-4d79-9fcf-8dfc0755adff",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-01-16T07:25:00.514Z",
+            "modified": "2024-01-17T16:22:08.533Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzA1NTA3NzcwLCJleHAiOjE3MDU1MTEzNzB9.WJnmYjZ4gaviy6HIDSc5-_Y-m4cN7QQXbWcE9yUMgJo"
+            },
+            "tests": []
+        },
+        {
+            "_id": "6e624fa9-34ed-4f44-80c4-17a37fe0c297",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Delete task by ID",
+            "url": "http://localhost:3000/tasks/35181eb6-8393-4d79-9fcf-8dfc0755adff",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-01-16T07:50:29.292Z",
+            "modified": "2024-01-17T16:25:22.607Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzA1NTA3NzcwLCJleHAiOjE3MDU1MTEzNzB9.WJnmYjZ4gaviy6HIDSc5-_Y-m4cN7QQXbWcE9yUMgJo"
+            },
+            "tests": []
+        },
+        {
+            "_id": "e56d39b1-b9c3-4b8f-84f6-049ebcf654be",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Update task status",
+            "url": "http://localhost:3000/tasks/316745b0-e7b2-4f98-a0d6-51ecb7e0069e/status",
+            "method": "PATCH",
+            "sortNum": 50000,
+            "created": "2024-01-16T08:11:02.091Z",
+            "modified": "2024-01-16T15:02:02.184Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "status",
+                        "value": "DONE"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "05e28e23-6013-43ff-8232-8c591258870b",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Get tasks with filters",
+            "url": "http://localhost:3000/tasks?search=Foo&status=OPEN",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-01-16T08:33:53.324Z",
+            "modified": "2024-01-17T16:34:45.978Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "search",
+                    "value": "Foo",
+                    "isPath": false
+                },
+                {
+                    "name": "status",
+                    "value": "OPEN",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNzA1NTA2NTQ1LCJleHAiOjE3MDU1MTAxNDV9.UUHEZqeuC_rQeuhnOwHAzEue18WWnZm4tpAoJBxLDSE"
+            },
+            "tests": []
+        },
+        {
+            "_id": "cce48e41-da43-4803-ac27-b5c2a04e667e",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Sign Up",
+            "url": "http://localhost:3000/auth/signup",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2024-01-17T09:18:14.714Z",
+            "modified": "2024-01-18T08:11:56.173Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "user3"
+                    },
+                    {
+                        "name": "password",
+                        "value": "superSecret1"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "0944e8d6-ea0d-4666-b6bb-6cb2c614355d",
+            "colId": "404f48b3-281b-492f-abb9-bea29e6119b9",
+            "containerId": "",
+            "name": "Sign In",
+            "url": "http://localhost:3000/auth/signin",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2024-01-17T09:55:21.866Z",
+            "modified": "2024-01-18T08:12:05.536Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "user3"
+                    },
+                    {
+                        "name": "password",
+                        "value": "superSecret1"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ]
+}
